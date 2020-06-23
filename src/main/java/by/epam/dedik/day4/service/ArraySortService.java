@@ -1,12 +1,10 @@
-package by.epam.javatr.dedik.day4.service;
+package by.epam.dedik.day4.service;
 
-import by.epam.javatr.dedik.day4.entity.ArrayShell;
+import by.epam.dedik.day4.exception.ArrayException;
+import by.epam.dedik.day4.entity.ArrayShell;
 
 public class ArraySortService {
-    private ArraySortService() {
-    }
-
-    public static void quickSort(ArrayShell arrayShell, int low, int high) {
+    public void quickSort(ArrayShell arrayShell, int low, int high) throws ArrayException {
         if (low < high) {
             int pi = partition(arrayShell, low, high);
 
@@ -15,7 +13,7 @@ public class ArraySortService {
         }
     }
 
-    public static void heapSort(ArrayShell arrayShell) {
+    public void heapSort(ArrayShell arrayShell) throws ArrayException {
         int n = arrayShell.size();
 
         // Build heap (rearrange array)
@@ -32,9 +30,10 @@ public class ArraySortService {
         }
     }
 
-    private static int partition(ArrayShell arrayShell, int low, int high) {
+    private int partition(ArrayShell arrayShell, int low, int high) throws ArrayException {
         int pivot = arrayShell.getElement(low);
-        int i = low - 1, j = high + 1;
+        int i = low - 1;
+        int j = high + 1;
 
         while (true) {
             // Find leftmost element greater
@@ -58,7 +57,7 @@ public class ArraySortService {
 
     // To heapify a subtree rooted with node i which is
     // an index in arr[]. n is size of heap
-    private static void heapify(ArrayShell arrayShell, int n, int i) {
+    private void heapify(ArrayShell arrayShell, int n, int i) throws ArrayException {
         int largest = i;  // Initialize largest as root
         int l = 2 * i + 1;  // left = 2*i + 1
         int r = 2 * i + 2;  // right = 2*i + 2

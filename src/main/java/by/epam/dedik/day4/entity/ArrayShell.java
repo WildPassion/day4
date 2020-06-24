@@ -9,7 +9,7 @@ public class ArrayShell {
     private static final int DEFAULT_CAPACITY = 10;
 
     private int[] array;
-    private int size = 0;
+    private int size;
 
     public ArrayShell() {
         array = new int[DEFAULT_CAPACITY];
@@ -65,14 +65,14 @@ public class ArrayShell {
 
     public boolean replaceElement(int element, int index) {
         boolean result = false;
-        if (index > 0 && index < size) {
+        if (index >= 0 && index < size) {
             array[index] = element;
             result = true;
         }
         return result;
     }
 
-    public boolean swapElements(int firstIndex, int secondIndex) {
+    public boolean swap(int firstIndex, int secondIndex) {
         boolean result = false;
         if (firstIndex >= 0 && secondIndex >= 0 &&
                 firstIndex < size && secondIndex < size) {
@@ -82,6 +82,15 @@ public class ArrayShell {
             result = true;
         }
         return result;
+    }
+
+    public void reverse() {
+        for(int i = 0; i < size / 2; i++)
+        {
+            int temp = array[i];
+            array[i] = array[size - i - 1];
+            array[size - i - 1] = temp;
+        }
     }
 
     @Override

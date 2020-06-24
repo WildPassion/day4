@@ -1,81 +1,126 @@
 package by.epam.dedik.day4.service;
 
-import by.epam.dedik.day4.exception.ArrayException;
 import by.epam.dedik.day4.entity.ArrayShell;
+import by.epam.dedik.day4.exception.ArrayException;
 
 public class ArraySortService {
-    public void quickSort(ArrayShell arrayShell, int low, int high) throws ArrayException {
-        if (low < high) {
-            int pi = partition(arrayShell, low, high);
+    public void quickSort(ArrayShell arrayShell) throws ArrayException {
+        quickSort(arrayShell, 0, arrayShell.size() - 1);
+    }
 
-            quickSort(arrayShell, low, pi);
-            quickSort(arrayShell, pi + 1, high);
-        }
+    public void mergeSort(ArrayShell arrayShell) throws ArrayException {
+        mergeSort(arrayShell, 0, arrayShell.size() - 1);
     }
 
     public void heapSort(ArrayShell arrayShell) throws ArrayException {
-        int n = arrayShell.size();
+        int size = arrayShell.size();
+        for (int i = size / 2; i >= 0; i--) {
+            heapify(arrayShell, size, i);
+        }
 
-        // Build heap (rearrange array)
-        for (int i = n / 2 - 1; i >= 0; i--)
-            heapify(arrayShell, n, i);
-
-        // One by one extract an element from heap
-        for (int i = n - 1; i >= 0; i--) {
-            // Move current root to end
-            arrayShell.swapElements(0, i);
-
-            // call max heapify on the reduced heap
+        for (int i = size - 1; i >= 0; i--) {
+            arrayShell.swap(0, i);
             heapify(arrayShell, i, 0);
         }
     }
 
-    private int partition(ArrayShell arrayShell, int low, int high) throws ArrayException {
-        int pivot = arrayShell.getElement(low);
-        int i = low - 1;
-        int j = high + 1;
+    private void quickSort(ArrayShell arrayShell, int left, int right) throws ArrayException {
+        if (left < right) {
+            int pi = partition(arrayShell, left, right);
+
+            quickSort(arrayShell, left, pi);
+            quickSort(arrayShell, pi + 1, right);
+        }
+    }
+
+    private void mergeSort(ArrayShell arrayShell, int left, int right) throws ArrayException {
+        if (left < right) {
+            int middle = (left + right) / 2;
+
+            mergeSort(arrayShell, left, middle);
+            mergeSort(arrayShell, middle + 1, right);
+
+            merge(arrayShell, left, middle, right);
+        }
+    }
+
+    private int partition(ArrayShell arrayShell, int left, int right) throws ArrayException {
+        int pivot = arrayShell.getElement(left);
+        int i = left - 1;
+        int j = right + 1;
 
         while (true) {
-            // Find leftmost element greater
-            // than or equal to pivot
             do {
                 i++;
             } while (arrayShell.getElement(i) < pivot);
 
-            // Find rightmost element smaller
-            // than or equal to pivot
             do {
                 j--;
             } while (arrayShell.getElement(j) > pivot);
 
-            // If two pointers met.
-            if (i >= j)
+            if (i >= j) {
                 return j;
-            arrayShell.swapElements(i, j);
+            }
+            arrayShell.swap(i, j);
         }
     }
 
-    // To heapify a subtree rooted with node i which is
-    // an index in arr[]. n is size of heap
-    private void heapify(ArrayShell arrayShell, int n, int i) throws ArrayException {
-        int largest = i;  // Initialize largest as root
-        int l = 2 * i + 1;  // left = 2*i + 1
-        int r = 2 * i + 2;  // right = 2*i + 2
+    private void heapify(ArrayShell arrayShell, int size, int i) throws ArrayException {
+        int root = i;
+        int left = 2 * i + 1;
+        int right = 2 * i + 2;
 
-        // If left child is larger than root
-        if (l < n && arrayShell.getElement(l) > arrayShell.getElement(largest))
-            largest = l;
+        if (left < size && arrayShell.getElement(left) > arrayShell.getElement(root)) {
+            root = left;
+        }
 
-        // If right child is larger than largest so far
-        if (r < n && arrayShell.getElement(r) > arrayShell.getElement(largest))
-            largest = r;
+        if (right < size && arrayShell.getElement(right) > arrayShell.getElement(root)) {
+            root = right;
+        }
 
-        // If largest is not root
-        if (largest != i) {
-            arrayShell.swapElements(i, largest);
+        if (root != i) {
+            arrayShell.swap(i, root);
+            heapify(arrayShell, size, root);
+        }
+    }
 
-            // Recursively heapify the affected sub-tree
-            heapify(arrayShell, n, largest);
+
+    private void merge(ArrayShell arrayShell, int left, int middle, int right) throws ArrayException {
+        int[] leftArray = new int[middle - left + 1];
+        int[] rightArray = new int[right - middle];
+
+        for (int i = 0; i < leftArray.length; i++) {
+            leftArray[i] = arrayShell.getElement(left + i);
+        }
+        for (int i = 0; i < rightArray.length; i++) {
+            rightArray[i] = arrayShell.getElement(middle + 1 + i);
+        }
+
+        int i = 0;
+        int j = 0;
+        int k = left;
+
+        while (i < leftArray.length && j < rightArray.length) {
+            if (leftArray[i] < rightArray[j]) {
+                arrayShell.replaceElement(leftArray[i], k);
+                i++;
+            } else {
+                arrayShell.replaceElement(rightArray[j], k);
+                j++;
+            }
+            k++;
+        }
+
+        while (i < leftArray.length) {
+            arrayShell.replaceElement(leftArray[i], k);
+            i++;
+            k++;
+        }
+
+        while (j < rightArray.length) {
+            arrayShell.replaceElement(rightArray[j], k);
+            j++;
+            k++;
         }
     }
 }

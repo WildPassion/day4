@@ -24,6 +24,22 @@ public class ArraySearchServiceTest {
     }
 
     @Test
+    public void binarySearch_emptyArray_negativeIndex() throws ArrayException {
+        ArrayShell arrayShell = new ArrayShell();
+        int actual = service.binarySearch(arrayShell, 0);
+        int expected = -1;
+        Assert.assertEquals(actual, expected);
+    }
+
+    @Test
+    public void binarySearch_nullArray_negativeIndex() throws ArrayException {
+        ArrayShell arrayShell = null;
+        int actual = service.binarySearch(arrayShell, 0);
+        int expected = -1;
+        Assert.assertEquals(actual, expected);
+    }
+
+    @Test
     public void min_arrayShell_minValue() throws ArrayException {
         ArrayShell arrayShell = new ArrayShell(new int[]{0, 1, 2, 3, 4, 5, 6, 7, 8, 9});
         int actual = service.min(arrayShell);

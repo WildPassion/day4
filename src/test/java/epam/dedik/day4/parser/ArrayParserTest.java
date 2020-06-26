@@ -1,6 +1,5 @@
 package epam.dedik.day4.parser;
 
-import by.epam.dedik.day4.exception.ArrayException;
 import by.epam.dedik.day4.parser.ArrayParser;
 import org.testng.Assert;
 import org.testng.annotations.BeforeClass;
@@ -15,7 +14,7 @@ public class ArrayParserTest {
     }
 
     @Test
-    public void toArray_string_array() throws ArrayException {
+    public void toArray_string_array() {
         String string = "qweqwqe 123 4 6 + +5";
         int[] actual = parser.toArray(string);
         int[] expected = new int[]{123, 4, 6};

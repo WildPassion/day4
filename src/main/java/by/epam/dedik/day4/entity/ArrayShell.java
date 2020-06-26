@@ -7,7 +7,7 @@ import java.util.StringJoiner;
 
 public class ArrayShell {
     private static final int DEFAULT_CAPACITY = 10;
-    public static final int MIN_ARRAY_LENGTH = 2;
+    private static final int MIN_ARRAY_LENGTH = 2;
 
     private int[] array;
     private int size;

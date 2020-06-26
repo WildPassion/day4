@@ -11,7 +11,7 @@ public class ArraySortServiceTest {
     private ArraySortService sortService;
 
     @BeforeClass
-    private void setUp() {
+    public void setUp() {
         sortService = new ArraySortService();
     }
 

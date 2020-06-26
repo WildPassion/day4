@@ -9,7 +9,7 @@ public class ArrayParserTest {
     private ArrayParser parser;
 
     @BeforeClass
-    public void setUp() {
+    public void setParser() {
         parser = new ArrayParser();
     }
 

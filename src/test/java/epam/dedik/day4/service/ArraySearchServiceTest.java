@@ -11,7 +11,7 @@ public class ArraySearchServiceTest {
     private ArraySearchService service;
 
     @BeforeClass
-    public void setUp() {
+    public void setService() {
         service = new ArraySearchService();
     }
 

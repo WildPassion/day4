@@ -9,7 +9,7 @@ public class ArrayReaderTest {
     private ArrayReader reader;
 
     @BeforeClass
-    private void setUp() {
+    private void setReader() {
         reader = new ArrayReader();
     }
 

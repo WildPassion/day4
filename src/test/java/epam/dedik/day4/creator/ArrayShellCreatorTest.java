@@ -13,7 +13,7 @@ public class ArrayShellCreatorTest {
     private ArrayShellCreator creator;
 
     @BeforeClass
-    public void setUp() {
+    public void setCreator() {
         creator = new ArrayShellCreator();
     }
 

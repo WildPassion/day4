@@ -11,7 +11,7 @@ public class NumberValidatorTest {
     private NumberValidator validator;
 
     @BeforeClass
-    private void initialize() {
+    public void setValidator() {
         validator = new NumberValidator();
     }
 

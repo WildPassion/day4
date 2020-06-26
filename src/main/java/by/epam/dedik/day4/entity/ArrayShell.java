@@ -17,9 +17,7 @@ public class ArrayShell {
     }
 
     public ArrayShell(int[] array) throws ArrayException {
-        if (array == null) {
-            throw new ArrayException("Can not create with null array");
-        } else if (array.length < MIN_ARRAY_LENGTH) {
+        if (array == null || array.length < MIN_ARRAY_LENGTH) {
             throw new ArrayException("Degenerate array");
         } else {
             this.array = array;

@@ -7,6 +7,7 @@ import java.util.StringJoiner;
 
 public class ArrayShell {
     private static final int DEFAULT_CAPACITY = 10;
+    private static final int MIN_ARRAY_LENGTH = 2;
 
     private int[] array;
     private int size;
@@ -15,9 +16,15 @@ public class ArrayShell {
         array = new int[DEFAULT_CAPACITY];
     }
 
-    public ArrayShell(int[] array) {
-        this.array = array == null ? new int[DEFAULT_CAPACITY] : array;
-        size = array == null ? 0 : array.length;
+    public ArrayShell(int[] array) throws ArrayException {
+        if (array == null) {
+            throw new ArrayException("Can not create with null array");
+        } else if (array.length < MIN_ARRAY_LENGTH) {
+            throw new ArrayException("Degenerate array");
+        } else {
+            this.array = array;
+            size = array.length;
+        }
     }
 
     public void addElement(int element) {
@@ -85,8 +92,7 @@ public class ArrayShell {
     }
 
     public void reverse() {
-        for(int i = 0; i < size / 2; i++)
-        {
+        for (int i = 0; i < size / 2; i++) {
             int temp = array[i];
             array[i] = array[size - i - 1];
             array[size - i - 1] = temp;

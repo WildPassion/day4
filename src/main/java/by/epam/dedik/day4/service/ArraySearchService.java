@@ -4,21 +4,28 @@ import by.epam.dedik.day4.entity.ArrayShell;
 import by.epam.dedik.day4.exception.ArrayException;
 
 public class ArraySearchService {
+    private static final int MIN_THREE_DIGIT = 100;
+    private static final int MAX_THREE_DIGIT = 999;
+
     public ArrayShell threeDigitNoDuplicateNumbers(ArrayShell arrayShell) throws ArrayException {
-        ArrayShell fibonacciNumbers = new ArrayShell();
-        for (int i = 0; i < arrayShell.size(); i++) {
-            if (isThreeDigitNoDuplicateNumber(arrayShell.getElement(i))) {
-                fibonacciNumbers.addElement(arrayShell.getElement(i));
+        ArrayShell threeDigit = new ArrayShell();
+        if (arrayShell != null) {
+            for (int i = 0; i < arrayShell.size(); i++) {
+                if (isThreeDigitNoDuplicateNumber(arrayShell.getElement(i))) {
+                    threeDigit.addElement(arrayShell.getElement(i));
+                }
             }
         }
-        return fibonacciNumbers;
+        return threeDigit;
     }
 
     public ArrayShell fibonacciNumbers(ArrayShell arrayShell) throws ArrayException {
         ArrayShell fibonacciNumbers = new ArrayShell();
-        for (int i = 0; i < arrayShell.size(); i++) {
-            if (isFibonacci(arrayShell.getElement(i))) {
-                fibonacciNumbers.addElement(arrayShell.getElement(i));
+        if (arrayShell != null) {
+            for (int i = 0; i < arrayShell.size(); i++) {
+                if (isFibonacci(arrayShell.getElement(i))) {
+                    fibonacciNumbers.addElement(arrayShell.getElement(i));
+                }
             }
         }
         return fibonacciNumbers;
@@ -26,41 +33,52 @@ public class ArraySearchService {
 
     public ArrayShell simpleNumbers(ArrayShell arrayShell) throws ArrayException {
         ArrayShell simpleNumbers = new ArrayShell();
-        for (int i = 0; i < arrayShell.size(); i++) {
-            if (isSimple(arrayShell.getElement(i))) {
-                simpleNumbers.addElement(arrayShell.getElement(i));
+        if (arrayShell != null) {
+            for (int i = 0; i < arrayShell.size(); i++) {
+                if (isSimple(arrayShell.getElement(i))) {
+                    simpleNumbers.addElement(arrayShell.getElement(i));
+                }
             }
         }
         return simpleNumbers;
     }
 
     public int max(ArrayShell arrayShell) throws ArrayException {
-        int max = arrayShell.getElement(0);
-        for (int i = 0; i < arrayShell.size(); i++) {
-            if (max < arrayShell.getElement(i)) {
-                max = arrayShell.getElement(i);
+        int max = 0;
+        if (arrayShell != null) {
+            max = arrayShell.getElement(0);
+            for (int i = 0; i < arrayShell.size(); i++) {
+                if (max < arrayShell.getElement(i)) {
+                    max = arrayShell.getElement(i);
+                }
             }
         }
         return max;
     }
 
     public int min(ArrayShell arrayShell) throws ArrayException {
-        int min = arrayShell.getElement(0);
-        for (int i = 0; i < arrayShell.size(); i++) {
-            if (min > arrayShell.getElement(i)) {
-                min = arrayShell.getElement(i);
+        int min = 0;
+        if (arrayShell != null) {
+            min = arrayShell.getElement(0);
+            for (int i = 0; i < arrayShell.size(); i++) {
+                if (min > arrayShell.getElement(i)) {
+                    min = arrayShell.getElement(i);
+                }
             }
         }
         return min;
     }
 
-    public int binarySearch(ArrayShell array, int key) throws ArrayException {
-        return isSorted(array) ? binarySearch(array, key, 0, array.size() - 1) : -1;
+    public int binarySearch(ArrayShell arrayShell, int key) throws ArrayException {
+        if (arrayShell != null && isSorted(arrayShell)) {
+            return binarySearch(arrayShell, key, 0, arrayShell.size() - 1);
+        }
+        return -1;
     }
 
     private boolean isThreeDigitNoDuplicateNumber(int number) {
         boolean result = false;
-        if (number > 99 && number < 1000) {
+        if (number >= MIN_THREE_DIGIT && number <= MAX_THREE_DIGIT) {
             int firstRemainder = number / 100;
             int secondRemainder = number / 10 % 10;
             int thirdRemainder = number % 10;

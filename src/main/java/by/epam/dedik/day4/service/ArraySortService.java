@@ -5,22 +5,28 @@ import by.epam.dedik.day4.exception.ArrayException;
 
 public class ArraySortService {
     public void quickSort(ArrayShell arrayShell) throws ArrayException {
-        quickSort(arrayShell, 0, arrayShell.size() - 1);
+        if (arrayShell != null) {
+            quickSort(arrayShell, 0, arrayShell.size() - 1);
+        }
     }
 
     public void mergeSort(ArrayShell arrayShell) throws ArrayException {
-        mergeSort(arrayShell, 0, arrayShell.size() - 1);
+        if (arrayShell != null) {
+            mergeSort(arrayShell, 0, arrayShell.size() - 1);
+        }
     }
 
     public void heapSort(ArrayShell arrayShell) throws ArrayException {
-        int size = arrayShell.size();
-        for (int i = size / 2; i >= 0; i--) {
-            heapify(arrayShell, size, i);
-        }
+        if (arrayShell != null) {
+            int size = arrayShell.size();
+            for (int i = size / 2; i >= 0; i--) {
+                heapify(arrayShell, size, i);
+            }
 
-        for (int i = size - 1; i >= 0; i--) {
-            arrayShell.swap(0, i);
-            heapify(arrayShell, i, 0);
+            for (int i = size - 1; i >= 0; i--) {
+                arrayShell.swap(0, i);
+                heapify(arrayShell, i, 0);
+            }
         }
     }
 

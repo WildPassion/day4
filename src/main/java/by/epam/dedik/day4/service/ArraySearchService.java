@@ -3,6 +3,8 @@ package by.epam.dedik.day4.service;
 import by.epam.dedik.day4.entity.ArrayShell;
 import by.epam.dedik.day4.exception.ArrayException;
 
+import java.util.Arrays;
+
 public class ArraySearchService {
     private static final int MIN_THREE_DIGIT = 100;
     private static final int MAX_THREE_DIGIT = 999;
@@ -70,7 +72,7 @@ public class ArraySearchService {
     }
 
     public int binarySearch(ArrayShell arrayShell, int key) throws ArrayException {
-        if (arrayShell != null && isSorted(arrayShell)) {
+        if (arrayShell != null) {
             return binarySearch(arrayShell, key, 0, arrayShell.size() - 1);
         }
         return -1;
@@ -109,16 +111,6 @@ public class ArraySearchService {
             }
         }
         return true;
-    }
-
-    private boolean isSorted(ArrayShell arrayShell) throws ArrayException {
-        boolean result = true;
-        for (int i = 0; i < arrayShell.size() - 1; i++) {
-            if (arrayShell.getElement(i) > arrayShell.getElement(i + 1)) {
-                result = false;
-            }
-        }
-        return result;
     }
 
     private int binarySearch(ArrayShell sortedArray, int key, int low, int high) throws ArrayException {

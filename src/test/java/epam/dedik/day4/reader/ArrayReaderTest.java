@@ -14,8 +14,14 @@ public class ArrayReaderTest {
     }
 
     @Test
-    public void readFromFile_data() {
-        System.out.println(reader.readFromFile());
-        Assert.assertNotNull(reader.readFromFile());
+    public void readFromFile_filename_data() {
+        String filename = "data.txt";
+        Assert.assertNotNull(reader.readFromFile(filename));
+    }
+
+    @Test(expectedExceptions = RuntimeException.class, expectedExceptionsMessageRegExp = "Can not find file .+")
+    public void readFromFile_incorrectFilename_runtimeException() {
+        String filename = "dat.txt";
+        reader.readFromFile(filename);
     }
 }
